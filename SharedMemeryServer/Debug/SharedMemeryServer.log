@@ -1,0 +1,9 @@
+﻿  源.cpp
+d:\sharedmemeryserver\sharedmemeryserver\GloveData.h(42): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\sharedmemeryserver\sharedmemeryserver\GloveData.h(43): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\sharedmemeryserver\sharedmemeryserver\GloveData.h(44): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\sharedmemeryserver\sharedmemeryserver\GloveData.h(45): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\sharedmemeryserver\sharedmemeryserver\GloveData.h(46): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+d:\sharedmemeryserver\sharedmemeryserver\GloveData.h(79): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  SharedMemeryServer.vcxproj -> D:\SharedMemeryServer\Debug\SharedMemeryServer.exe
+  SharedMemeryServer.vcxproj -> D:\SharedMemeryServer\Debug\SharedMemeryServer.pdb (Full PDB)
