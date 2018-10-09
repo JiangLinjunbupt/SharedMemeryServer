@@ -56,7 +56,7 @@ int main()
 
 	GloveData glovedata;
 
-	float *Transdata = new float[27];
+	float *Transdata = new float[26];
 	while (1)
 	{
 		glovedata.GetGloveData();
@@ -64,7 +64,7 @@ int main()
 		{
 			Transdata[i] = glovedata.HandinfParams[i];
 		}
-		memcpy((PVOID)pBuf, Transdata, sizeof(float) * 27);
+		memcpy((PVOID)pBuf, Transdata, sizeof(float) * 26);
 		Sleep(10);
 	}
 

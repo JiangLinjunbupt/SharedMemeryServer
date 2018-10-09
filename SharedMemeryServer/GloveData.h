@@ -13,10 +13,10 @@ public:
 	{
 		gm = gcnew GloveModel();
 		gm->GetSingleton();
-		gm->Mychuankou = "COM5";
+		gm->Mychuankou = "COM4";
 		gm->Conected();
 		gm->SetSocket();
-		HandinfParams = new float[27];
+		HandinfParams = new float[26];
 	}
 	~GloveData() {
 		delete HandinfParams;
@@ -94,7 +94,12 @@ public:
 			HandinfParams[16] = (HandinfParams[16] + 20) > 90 ? 90 : (HandinfParams[16] + 20);
 		}
 
+		for(int i = 0; i < 26; ++i)
+		{
+			if (HandinfParams[i] < -200)  HandinfParams[i] = HandinfParams[i] + 360;
 
+			if (HandinfParams[i] > 200) HandinfParams[i] = HandinfParams[i] - 360;
+		}
 	}
 
 private:
