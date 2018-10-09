@@ -13,7 +13,7 @@ public:
 	{
 		gm = gcnew GloveModel();
 		gm->GetSingleton();
-		gm->Mychuankou = "COM3";
+		gm->Mychuankou = "COM5";
 		gm->Conected();
 		gm->SetSocket();
 		HandinfParams = new float[27];
@@ -27,74 +27,74 @@ public:
 	{
 		gm->GetData();
 		gm->SkeletonJsonToHandinf(gm->fram);
-		for (int i = 0;i < 5;i++)
+
+
+		HandinfParams[0] = 0;
+		HandinfParams[1] = 0;
+		HandinfParams[2] = 0;
+
+		HandinfParams[3] = -gm->handinformation->global_pitch_y;
+		HandinfParams[4] = gm->handinformation->global_roll_x;
+		HandinfParams[5] = gm->handinformation->global_yaw_z;
+
+		//thumb
+		HandinfParams[6] = gm->handinformation->fingers[4]->Mcp_z;
+		HandinfParams[7] = -gm->handinformation->fingers[4]->Mcp_x - 30;
+		HandinfParams[8] = -0.8f*gm->handinformation->fingers[4]->Pip;
+		HandinfParams[9] = -gm->handinformation->fingers[4]->Pip;
+
+		//index
+		HandinfParams[10] = gm->handinformation->fingers[3]->Mcp_x;
+		HandinfParams[11] = gm->handinformation->fingers[3]->Mcp_z;
+		HandinfParams[12] = gm->handinformation->fingers[3]->Pip;
+		HandinfParams[13] = 0.8f*gm->handinformation->fingers[3]->Pip;
+
+		//middle
+		HandinfParams[14] = gm->handinformation->fingers[2]->Mcp_x;
+		HandinfParams[15] = gm->handinformation->fingers[2]->Mcp_z;
+		HandinfParams[16] = gm->handinformation->fingers[2]->Pip;
+		HandinfParams[17] = 0.8f*gm->handinformation->fingers[2]->Pip;
+
+		//ring
+		HandinfParams[18] = gm->handinformation->fingers[1]->Mcp_x;
+		HandinfParams[19] = gm->handinformation->fingers[1]->Mcp_z;
+		HandinfParams[20] = gm->handinformation->fingers[1]->Pip;
+		HandinfParams[21] = 0.8f*gm->handinformation->fingers[1]->Pip;
+
+		//pinkey
+		HandinfParams[22] = gm->handinformation->fingers[0]->Mcp_x;
+		HandinfParams[23] = gm->handinformation->fingers[0]->Mcp_z;
+		HandinfParams[24] = gm->handinformation->fingers[0]->Pip;
+		HandinfParams[25] = 0.8f*gm->handinformation->fingers[0]->Pip;
+
+
+		//规范参数，让手模看起来和真实更接近
+		if (HandinfParams[11] < 10)
 		{
-			HandinfParams[i * 3 + 0] = gm->handinformation->fingers[i]->Mcp_x;
-			HandinfParams[i * 3 + 1] = gm->handinformation->fingers[i]->Mcp_z;
-			HandinfParams[i * 3 + 2] = gm->handinformation->fingers[i]->Pip;
+			HandinfParams[11] = (HandinfParams[11] - 15.0)<-20.0f ? -20.0f : (HandinfParams[11] - 15.0);
 		}
-		HandinfParams[15] = gm->handinformation->global_roll_x;
-		HandinfParams[16] = gm->handinformation->global_pitch_y;
-		HandinfParams[17] = gm->handinformation->global_yaw_z;
-		HandinfParams[18] = gm->handinformation->fingers[4]->Dip;    //大拇指的Mcp_y
 
-
-		HandinfParams[19] = 0.66*HandinfParams[14];  //大拇指弯曲
-		HandinfParams[20] = 0.66*HandinfParams[2];
-		HandinfParams[21] = 0.66*HandinfParams[5];
-		HandinfParams[22] = 0.66*HandinfParams[8];
-		HandinfParams[23] = 0.66*HandinfParams[11];
-
-		HandinfParams[24] = 0;
-		HandinfParams[25] = 0;
-		HandinfParams[26] = 0;
-		//调整参数范围，使其看起来不那么奇怪。
-		if (HandinfParams[1] < -10)
+		if (HandinfParams[19] > -14 && HandinfParams[19] < 10.0)
 		{
-			HandinfParams[1] = HandinfParams[1] + 15;
+			HandinfParams[19] = (HandinfParams[19] + 8.0f) > 15.0f ? 15.0f : (HandinfParams[19] + 8.0f);
 		}
-
-		if (HandinfParams[4] < 0)
+		if (HandinfParams[23] > -19)
 		{
-			HandinfParams[4] = HandinfParams[4] + 10;
+			HandinfParams[23] = (HandinfParams[23] + 15.0f) >10.0f ? 10.0f : (HandinfParams[23] + 15.0f);
 		}
+		HandinfParams[15] = 0;
 
-		if (HandinfParams[10] > 0)
+		if (HandinfParams[12] > 20)
 		{
-			HandinfParams[10] = HandinfParams[10] - 15;
+			HandinfParams[12] = (HandinfParams[12] + 20) > 90 ? 90 : (HandinfParams[12] + 20);
 		}
 
-		HandinfParams[12] = HandinfParams[12] + 40;
-		HandinfParams[13] = HandinfParams[13] - 10;
-
-		HandinfParams[7] = 0.0;
-
-
-		for (int i = 0; i < 24; i++)
+		if (HandinfParams[16] > 20)
 		{
-			if (i == 15 || i == 16 || i == 17)
-			{
-				if (HandinfParams[i] < 0)
-				{
-					HandinfParams[i] = HandinfParams[i] + 360.0;
-				}
-			}
-			else
-			{
-				if (HandinfParams[i] > 200)
-				{
-					HandinfParams[i] = HandinfParams[i] - 360;
-				}
-				else if (HandinfParams[i]<-180)
-				{
-					HandinfParams[i] = HandinfParams[i] + 360;
-				}
-				else
-				{
-					;
-				}
-			}
+			HandinfParams[16] = (HandinfParams[16] + 20) > 90 ? 90 : (HandinfParams[16] + 20);
 		}
+
+
 	}
 
 private:
