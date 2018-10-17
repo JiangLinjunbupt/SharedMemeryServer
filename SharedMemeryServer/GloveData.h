@@ -71,7 +71,7 @@ public:
 		//规范参数，让手模看起来和真实更接近
 		if (HandinfParams[11] < 10)
 		{
-			HandinfParams[11] = (HandinfParams[11] - 15.0)<-20.0f ? -20.0f : (HandinfParams[11] - 15.0);
+			HandinfParams[11] = (HandinfParams[11] - 15.0f)<-20.0f ? -20.0f : (HandinfParams[11] - 15.0f);
 		}
 
 		if (HandinfParams[19] > -14 && HandinfParams[19] < 10.0)
@@ -101,6 +101,113 @@ public:
 			if (HandinfParams[i] > 200) HandinfParams[i] = HandinfParams[i] - 360;
 		}
 	}
+
+	void SetOptimizedData(float* optimizedData)
+	{
+		//       0       ------>    wrist_T_x    //全局平移
+		//       1       ------>    wrist_T_y    //全局平移
+		//       2       ------>    wrist_T_z    //全局平移
+		RestrictGlobal_xyz(optimizedData[0], optimizedData[1], optimizedData[2]);
+
+
+		//       3       ------>    wrist_R_x
+		//       4       ------>    wrist_R_y
+		//       5       ------>    wrist_R_z
+		gm->OptimizedData->global_roll_x = optimizedData[4];
+		gm->OptimizedData->global_pitch_y = -optimizedData[3];
+		gm->OptimizedData->global_yaw_z = optimizedData[5];
+
+
+		//       6       ------>    Thumb_Low_R_y
+		//       7       ------>    Thumb_Low_R_z
+		//       8       ------>    Thumb_mid_R_y    //这里注意了，是z不是y了
+		//       9       ------>    Thumb_top_R_y    //这里注意了，是z不是y了
+		gm->OptimizedData->fingers[0]->Mcp_x = optimizedData[6];
+		gm->OptimizedData->fingers[0]->Mcp_z = optimizedData[7];
+		gm->OptimizedData->fingers[0]->Pip = -optimizedData[8];
+		gm->OptimizedData->fingers[0]->Dip = -optimizedData[9];
+
+
+		//       10      ------>    Index_Low_R_y
+		//       11      ------>    Index_Low_R_z
+		//       12      ------>    Index_mid_R_y
+		//       13      ------>    Index_top_R_y
+		gm->OptimizedData->fingers[1]->Mcp_x = optimizedData[10];
+		gm->OptimizedData->fingers[1]->Mcp_z = optimizedData[11];
+		gm->OptimizedData->fingers[1]->Pip = optimizedData[12];
+		gm->OptimizedData->fingers[1]->Dip = optimizedData[13];
+
+
+		//       14      ------>    Middle_Low_R_y
+		//       15      ------>    Middle_Low_R_z
+		//       16      ------>    Middle_mid_R_y
+		//       17      ------>    Middle_top_R_y
+		gm->OptimizedData->fingers[2]->Mcp_x = optimizedData[14];
+		gm->OptimizedData->fingers[2]->Mcp_z = optimizedData[15];
+		gm->OptimizedData->fingers[2]->Pip = optimizedData[16];
+		gm->OptimizedData->fingers[2]->Dip = optimizedData[17];
+
+
+		//       18      ------>    Ring_Low_R_y
+		//       19      ------>    Ring_Low_R_z
+		//       20      ------>    Ring_mid_R_y
+		//       21      ------>    Ring_top_R_y
+		gm->OptimizedData->fingers[3]->Mcp_x = optimizedData[18];
+		gm->OptimizedData->fingers[3]->Mcp_z = optimizedData[19];
+		gm->OptimizedData->fingers[3]->Pip = optimizedData[20];
+		gm->OptimizedData->fingers[3]->Dip = optimizedData[21];
+
+
+		//       22      ------>    Pinkey_Low_R_y
+		//       23      ------>    Pinkey_Low_R_z
+		//       24      ------>    Pinkey_mid_R_y
+		//       25      ------>    Pinkey_top_R_y
+		gm->OptimizedData->fingers[4]->Mcp_x = optimizedData[22];
+		gm->OptimizedData->fingers[4]->Mcp_z = optimizedData[23];
+		gm->OptimizedData->fingers[4]->Pip = optimizedData[24];
+		gm->OptimizedData->fingers[4]->Dip = optimizedData[25];
+
+	}
+
+	void RestrictGlobal_xyz(float X,float Y,float Z) {
+
+		//对位置进行限制
+		float xmin = 0.10; float xmax = 0.40;
+		float ymin = -0.30; float ymax = -0.10;
+		float zmin = -0.85; float zmax = -0.60;
+
+		if (X < xmin)
+		{
+			X = xmin;
+		}
+		if (X > xmax)
+		{
+			X = xmax;
+		}
+
+		if (Y < ymin)
+		{
+			Y = ymin;
+		}
+		if (Y > ymax)
+		{
+			Y = ymax;
+		}
+
+		if (Z < zmin)
+		{
+			Z = zmin;
+		}
+		if (Z > zmax)
+		{
+			Z = zmax;
+		}
+
+		gm->OptimizedData->global_x = (X - xmin) / (xmax - xmin);
+		gm->OptimizedData->global_y = (Y - ymin) / (ymax - ymin);
+		gm->OptimizedData->global_z = (Z - zmin) / (zmax - zmin);
+	}
+
 
 private:
 	gcroot<GloveModel^> gm;
