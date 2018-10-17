@@ -1,5 +1,6 @@
 #pragma once
 #include <vcclr.h>  
+#include<iostream>
 #using "../debug/GloveTool.dll"
 #using "../debug/GloveLibPC.dll"
 using namespace GloveLib;
@@ -13,7 +14,7 @@ public:
 	{
 		gm = gcnew GloveModel();
 		gm->GetSingleton();
-		gm->Mychuankou = "COM4";
+		gm->Mychuankou = "COM3";
 		gm->Conected();
 		gm->SetSocket();
 		HandinfParams = new float[26];
@@ -107,7 +108,7 @@ public:
 		//       0       ------>    wrist_T_x    //全局平移
 		//       1       ------>    wrist_T_y    //全局平移
 		//       2       ------>    wrist_T_z    //全局平移
-		RestrictGlobal_xyz(optimizedData[0], optimizedData[1], optimizedData[2]);
+		RestrictGlobal_xyz(-optimizedData[0], optimizedData[1], optimizedData[2]);
 
 
 		//       3       ------>    wrist_R_x
@@ -171,10 +172,12 @@ public:
 
 	void RestrictGlobal_xyz(float X,float Y,float Z) {
 
+
+		//std::cout << "X : " << X << "   Y : " << Y << "  Z  : " << Z << std::endl;
 		//对位置进行限制
-		float xmin = 0.10; float xmax = 0.40;
-		float ymin = -0.30; float ymax = -0.10;
-		float zmin = -0.85; float zmax = -0.60;
+		float xmin = -100.0f; float xmax = 400.0f;
+		float ymin = -300.0f; float ymax = -100.0f;
+		float zmin = -850.0f; float zmax = -600.0f;
 
 		if (X < xmin)
 		{

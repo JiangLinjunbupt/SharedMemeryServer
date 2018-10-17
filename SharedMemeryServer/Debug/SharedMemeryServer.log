@@ -1,7 +1,3 @@
 ﻿  源.cpp
-f:\sharedmemeryserver\sharedmemeryserver\GloveData.h(175): warning C4305: “初始化”: 从“double”到“float”截断
-f:\sharedmemeryserver\sharedmemeryserver\GloveData.h(176): warning C4305: “初始化”: 从“double”到“float”截断
-f:\sharedmemeryserver\sharedmemeryserver\GloveData.h(177): warning C4305: “初始化”: 从“double”到“float”截断
-  .NETFramework,Version=v4.0.AssemblyAttributes.cpp
-  SharedMemeryServer.vcxproj -> F:\SharedMemeryServer\Debug\SharedMemeryServer.exe
-  SharedMemeryServer.vcxproj -> F:\SharedMemeryServer\Debug\SharedMemeryServer.pdb (Full PDB)
+  SharedMemeryServer.vcxproj -> D:\Github_project\SharedMemeryServer\Debug\SharedMemeryServer.exe
+  SharedMemeryServer.vcxproj -> D:\Github_project\SharedMemeryServer\Debug\SharedMemeryServer.pdb (Full PDB)
