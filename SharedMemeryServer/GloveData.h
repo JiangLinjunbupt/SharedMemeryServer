@@ -14,7 +14,7 @@ public:
 	{
 		gm = gcnew GloveModel();
 		gm->GetSingleton();
-		gm->Mychuankou = "COM3";
+		gm->Mychuankou = "COM4";
 		gm->Conected();
 		gm->SetSocket();
 		HandinfParams = new float[26];
@@ -41,7 +41,7 @@ public:
 		//thumb
 		HandinfParams[6] = gm->handinformation->fingers[4]->Mcp_z;
 		HandinfParams[7] = -gm->handinformation->fingers[4]->Mcp_x - 30;
-		HandinfParams[8] = -0.8f*gm->handinformation->fingers[4]->Pip;
+		HandinfParams[8] = -0.6f*gm->handinformation->fingers[4]->Pip;
 		HandinfParams[9] = -gm->handinformation->fingers[4]->Pip;
 
 		//index
