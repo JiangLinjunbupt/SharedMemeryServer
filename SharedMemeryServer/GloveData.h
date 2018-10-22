@@ -177,7 +177,7 @@ public:
 		//对位置进行限制
 		float xmin = -150.0f; float xmax = 400.0f;
 		float ymin = -200.0f; float ymax = 150.0f;
-		float zmin = -800.0f; float zmax = -600.0f;
+		float zmin = -1100.0f; float zmax = -800.0f;
 
 		if (X < xmin)
 		{
