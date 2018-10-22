@@ -14,7 +14,7 @@ public:
 	{
 		gm = gcnew GloveModel();
 		gm->GetSingleton();
-		gm->Mychuankou = "COM4";
+		gm->Mychuankou = "COM3";
 		gm->Conected();
 		gm->SetSocket();
 		HandinfParams = new float[26];
@@ -175,9 +175,9 @@ public:
 
 		//std::cout << "X : " << X << "   Y : " << Y << "  Z  : " << Z << std::endl;
 		//对位置进行限制
-		float xmin = -100.0f; float xmax = 400.0f;
-		float ymin = -300.0f; float ymax = -100.0f;
-		float zmin = -850.0f; float zmax = -600.0f;
+		float xmin = -150.0f; float xmax = 400.0f;
+		float ymin = -200.0f; float ymax = 150.0f;
+		float zmin = -800.0f; float zmax = -600.0f;
 
 		if (X < xmin)
 		{
